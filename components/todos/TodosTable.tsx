@@ -47,7 +47,7 @@ const Todosdiv = ({ todos }: { todos: Todo[] }) => {
         <Input 
           attr={{
             type: "text",
-            placeholder: "할일입력",
+            placeholder: "할일 입력",
             value: text,
           }}
           handleInputChange={handleInputChange}
