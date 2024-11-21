@@ -9,17 +9,16 @@ import TodoItem from "./TodoItem";
 
 
 const Todosdiv = ({ todos }: { todos: Todo[] }) => {
-
+  
   const [stateTodos, setStateodos] = useState(todos)
   const [text, setText] = useState('');
+
+  console.info('stateTodos : ', stateTodos)
 
   const handleInputChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
     setText(target.value)
   }
-
-
-
 
   const handleTodoSubmit = async () => {
     const options = { 
@@ -30,7 +29,7 @@ const Todosdiv = ({ todos }: { todos: Todo[] }) => {
     
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todos/`, options)
     const data = await res.json();
-    // console.log('data???', data)
+    console.log('data???', data)
     
     setStateodos(prev => [ data.data ,...prev ])
     // console.log(res.json());
@@ -41,9 +40,7 @@ const Todosdiv = ({ todos }: { todos: Todo[] }) => {
 
   return (
     <div>
-
-
-    <div className="my-[50px]">
+      <div className="my-[50px]">
         <Input 
           attr={{
             type: "text",
@@ -63,7 +60,6 @@ const Todosdiv = ({ todos }: { todos: Todo[] }) => {
         />
       </div>
 
-
       <div className="w-[800px]">
         <div className="flex justify-start gap-[20px]">
           <div>아이디</div>
@@ -77,7 +73,6 @@ const Todosdiv = ({ todos }: { todos: Todo[] }) => {
           ))}
         </div>
       </div>
-      
     </div>
     
   );

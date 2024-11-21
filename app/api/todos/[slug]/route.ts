@@ -9,6 +9,7 @@ import { getTodo, deleteTodo, updateTodo } from "@/data/firestore";
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
     // const searchParams = req.nextUrl.searchParams;
     // const query = searchParams.get('query')
+    // console.info("GET", req)
     const todo = await getTodo(params.slug)
 
     if(!todo) return NextResponse.json({ state:'FAILUE', message: '없는 글입니다.' }, { status: 204 })
@@ -27,6 +28,8 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
 export async function PUT(req: NextRequest, { params }: { params: { slug: string } }) {
     // const searchParams = req.nextUrl.searchParams;
     // const query = searchParams.get('query')
+    // console.info("PUT", req)
+
    
     const { title, is_done } = await req.json();
     const todo = await updateTodo({ id: params.slug, title, is_done })

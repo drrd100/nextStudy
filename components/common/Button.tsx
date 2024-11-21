@@ -11,18 +11,19 @@
 
 interface Props {
     content: string;
-    attr: {
+    attr?: {
         type: "button";
-        style: object;
+        style?: object;
         title?: string;
     }
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
+    className? :string
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 
-const Button = ({ attr, content, onClick }: Props) => {
+const Button = ({ attr, content,className, onClick }: Props) => {
     return (
-        <button {...attr} onClick={onClick}>{content}</button>
+        <button className={className} {...attr} onClick={onClick}>{content}</button>
     )
 }
 

@@ -51,3 +51,18 @@ export const subtitle = tv({
     fullWidth: true
   }
 });
+
+export const button = tv({
+	base : "inline-block border border-white rounded-[4px] px-[4px] py-[2px]",
+	variants : {
+		type : {
+			default : "",
+			add : "bg-blue-700 text-white",
+			modify : "bg-emerald-500 text-white",
+			delete : "bg-rose-700 text-white"
+		},
+	},
+	defaultVariants:{
+		type : "default"
+	}
+})

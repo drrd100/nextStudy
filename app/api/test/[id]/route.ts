@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 // 3. client await fn에 return 값으로 담김
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+    // console.info("GET",request, params )
     // const searchParams = useSearchParams();
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('query')
@@ -40,6 +41,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+    // console.info("POST",request, params )
 
     // const searchParams = request.nextUrl.searchParams;
     // const query = searchParams.get('query')

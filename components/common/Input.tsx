@@ -2,10 +2,10 @@
 interface Props { 
     attr: {
         type: string;
-        value: string;
+        value?: string;
         placeholder: string;
     }
-    handleInputChange: any
+    handleInputChange?: any
     
 }
 
