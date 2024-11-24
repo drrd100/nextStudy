@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 
 const TodoItem = ({ todo, setStateodos }) => {
+    console.info('zz:',setStateodos);
 
     const [title, setTitle] = useState(todo.title)
     const [isdone, setIsdone] = useState(todo.is_done)

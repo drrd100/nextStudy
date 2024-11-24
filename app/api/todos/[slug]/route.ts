@@ -53,7 +53,6 @@ export async function PUT(req: NextRequest, { params }: { params: { slug: string
 export async function DELETE(req: NextRequest, { params }: { params: { slug: string } }) {
     // const searchParams = req.nextUrl.searchParams;
     // const query = searchParams.get('query')
-   
     const todo = await deleteTodo(params.slug)
     // console.log('todo?', todo)
 

@@ -21,7 +21,6 @@ export default function TodoContainer({data}){
     }
     
     const handleSubmit = async () => {
-
         const options = {
             title : value,
             is_done : false
@@ -35,7 +34,7 @@ export default function TodoContainer({data}){
             })
             .catch((error) => console.log(error))
 
-        console.info("handleSubmit : ", [...todos])
+        // console.info("handleSubmit : ", [...todos])
         setTodos([...todos, res])
     }
 
@@ -53,13 +52,13 @@ export default function TodoContainer({data}){
 
             <div className="py-[20px]">
                 {todos && todos.map((item, key) => {
-                    return <TodoItem key={key} data={item}/>
+                    return <TodoItem key={key} data={item} setTodos={setTodos}/>
                 })}
             </div>
 
             <div className="absolute bottom-20">
                 <Input attr={{placeholder:"todo 입력해주세요.", type:"text", value:value}} handleInputChange={handleInputChange}/>
-                <Button   
+                <Button 
                     className={button({type:"add"})}
                     content="추가"
                     attr={{
