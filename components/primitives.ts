@@ -59,7 +59,9 @@ export const button = tv({
 			default : "",
 			add : "bg-blue-700 text-white",
 			modify : "bg-emerald-500 text-white",
-			delete : "bg-rose-700 text-white"
+			delete : "bg-rose-700 text-white",
+			done : "bg-cyan-600 text-white",
+			cancel : "bg-amber-300 text-black"
 		},
 	},
 	defaultVariants:{
