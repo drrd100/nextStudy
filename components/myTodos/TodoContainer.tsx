@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import TodoItem from "./TodoItem";
@@ -28,18 +28,14 @@ export default function TodoContainer({data}){
 
         const res = await xiorInstance.post('/api/todos/', JSON.stringify(options))
             .then((res) => {
-                const data = res.data.data
-                console.log(data)
-                return data
+                setTodos([...todos, res.data.data])
+                setValue("")
             })
             .catch((error) => console.log(error))
-
-        // console.info("handleSubmit : ", [...todos])
-        setTodos([...todos, res])
     }
 
 
-    // console.info("TodoContainer : ",data)
+    console.info("TodoContainer : ",data)
 
     return (
         <>
@@ -57,7 +53,7 @@ export default function TodoContainer({data}){
             </div>
 
             <div className="absolute bottom-20">
-                <Input attr={{placeholder:"todo 입력해주세요.", type:"text", value:value}} handleInputChange={handleInputChange}/>
+                <Input attr={{placeholder:"todo 입력해주세요.", type:"text", value : value}} handleInputChange={handleInputChange}/>
                 <Button 
                     className={button({type:"add"})}
                     content="추가"

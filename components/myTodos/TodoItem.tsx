@@ -26,34 +26,69 @@ const xiorInstance = xior.create({
   });
 
 export default function TodoItem({ data , setTodos} : TodoItemProp){
-    console.info(setTodos)
+    // console.info(setTodos)
+    const [inputValue, setinputValue] = useState(data.title) 
     const [isDone, setIsDone] = useState(data.is_done)
     const [isModify, setIsModify] = useState(false)
-    const [value, setValue] = useState('');
  
     const handleInputChange = (e : any) => {
-        setValue(e.target.value)
+        setinputValue(e.target.value)
     }
 
     const handleIsDone = () => {
         setIsDone(!isDone)
     }
 
+    // 업데이트
+    const handleSubmit = async() => {
+        const body = {
+            title : inputValue,
+            is_done : isDone
+        }
+        const res = await xiorInstance.put(`/api/todos/${data.id}`, body)
+            .then((res) => {
+                // console.info(res.data)
+                setIsModify(!isModify)
+                setTodos(prev => prev.map(item => {
+                    if(item.id === data.id) {
+                        // console.log("같다", item, res.data)
+
+                        return { ...item, title: inputValue, is_done: isDone }
+                    }
+                    return item
+                }))
+            })
+            .catch((error) => console.log("업뎃에러! : ", error))
+    }
+
+    // 수정
     const handleModify = () => {
         setIsModify(!isModify)
     }
 
+    // 취소
+    const handleCancel = () => {
+
+        setTodos(prev => prev.map(item => {
+            if(item.is_done !== isDone){
+                setIsDone(item.is_done)
+            }
+            setIsModify(!isModify)
+
+            return item
+        }))
+    }
+
+    // 삭제
     const handleDelete = async () => {
 
         const res = await xiorInstance.delete(`/api/todos/${data.id}`)
             .then((res) => {
-                const data = res
-
-                return data
+                // console.info(res.data)
+                setTodos(prev => prev.filter(item => item.id !== res.data.data.id))
             })
-            .catch((error) => console.log("에러! : ", error))
+            .catch((error) => console.log("삭제에러! : ", error))
 
-        setTodos(prev => prev.filter(item => item.id !== data.id))
     }
 
     return (
@@ -64,7 +99,7 @@ export default function TodoItem({ data , setTodos} : TodoItemProp){
                 {/* 내용 */}
                 {isModify ? 
                     (<>
-                       <Input attr={{placeholder:"todo 입력해주세요.", type:"text", value: value}} handleInputChange={handleInputChange}/>
+                       <Input attr={{placeholder:"todo 입력해주세요.", type:"text", value: inputValue}} handleInputChange={handleInputChange}/>
                     </>) : 
                     (<>
                         <span>{data.title}</span>
@@ -86,8 +121,8 @@ export default function TodoItem({ data , setTodos} : TodoItemProp){
                 {/* 버튼 */}
                 {isModify ? 
                     (<>
-                        <Button className={button({type:"done"})} content={"완료"}/>
-                        <Button className={button({type:"cancel"})} onClick={handleModify} content={"취소"}/>
+                        <Button className={button({type:"done"})} onClick={handleSubmit} content={"완료"}/>
+                        <Button className={button({type:"cancel"})} onClick={handleCancel} content={"취소"}/>
                     </>) : 
                     (<>
                         <Button className={button({type:"modify"})} onClick={handleModify} content={"수정"}/>
