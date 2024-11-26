@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import clsx from "clsx";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Floating from "@/components/layout/Floating";
 
 export const metadata: Metadata = {
 	title: '',
@@ -30,9 +31,10 @@ export default function RootLayout({ children, }: { children: React.ReactNode; }
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
 					<div className="relative flex flex-col h-screen">
 						<Header />
-						<main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+						<main className="container mx-auto max-w-[1280px] flex-grow">
 							{children}
 						</main>
+						<Floating />
 						<Footer />
 					</div>
 				</Providers>

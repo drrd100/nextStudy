@@ -61,10 +61,8 @@ export default function Home() {
 
 
 	return (
-		<div>
-			root page
-
-
+		<div className="h-[2000px]">
+			HOME page
 		</div>
 	);
 }
