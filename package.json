@@ -40,6 +40,7 @@
 		"tailwind-variants": "^0.1.20",
 		"tailwindcss": "3.4.3",
 		"typescript": "5.0.4",
-		"xior": "^0.6.1"
+		"xior": "^0.6.1",
+		"zustand": "^5.0.1"
 	}
 }
