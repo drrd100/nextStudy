@@ -1,19 +1,18 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import TodoItem from "./TodoItem";
 import { button } from "@/components/primitives";
-import xior from 'xior';
+import todoStore from "@/store/todoStore";
 
-const xiorInstance = xior.create({
-    baseURL:`${process.env.NEXT_PUBLIC_BASE_URL}`,
-    headers: { "Content-Type": "application/json", },
-  });
+export default function TodoContainer(){
+    const todosState = todoStore((state) => state.todos);
+	const getTodos = todoStore((state) => state.getTodos);
+	const getTodosState = todoStore((state) => state.getTodosState);
+    const addTodos = todoStore((state) => state.addTodos);
 
-export default function TodoContainer({data}){
-    const [todos, setTodos] = useState(data);
     const [value, setValue] = useState('');
  
     const handleInputChange = (e : any) => {
@@ -25,17 +24,15 @@ export default function TodoContainer({data}){
             title : value,
             is_done : false
         }
-
-        const res = await xiorInstance.post('/api/todos/', JSON.stringify(options))
-            .then((res) => {
-                setTodos([...todos, res.data.data])
-                setValue("")
-            })
-            .catch((error) => console.log(error))
+        addTodos(options)
+        setValue("")
     }
+    console.log("zzz ", getTodosState)
 
-
-    console.info("TodoContainer : ",data)
+    useEffect(() => {
+		console.log("이펙트", getTodosState)
+		getTodos();
+	},[])
 
     return (
         <>
@@ -47,9 +44,29 @@ export default function TodoContainer({data}){
             </div>
 
             <div className="py-[20px]">
-                {todos && todos.map((item, key) => {
-                    return <TodoItem key={key} data={item} setTodos={setTodos}/>
-                })}
+                
+                {getTodosState.LOADING && (
+                    <>
+                    {console.log(getTodosState.LOADING, "?????")}
+                     <p>로딩중로딩중로딩중로딩중로딩중로딩중</p>
+                    </>
+                )}
+           
+                {getTodosState.SUCCES && (
+                  <>
+                    {todosState && todosState.map((item, key) => {
+                        return <TodoItem key={key} data={item} />
+                    })}
+                  </>
+                )}
+                    
+                {getTodosState.FAILUE && (
+                     <p>시스템에러가 발생했습니다.</p>
+                )}    
+
+                       
+                
+               
             </div>
 
             <div className="absolute bottom-20">

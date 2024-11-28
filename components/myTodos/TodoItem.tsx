@@ -17,7 +17,7 @@ type TodoItemProp = {
         is_done : boolean
         title : string
     }
-    setTodos:any
+    setTodos ?:any
 }
 
 const xiorInstance = xior.create({
