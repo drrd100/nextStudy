@@ -20,9 +20,14 @@ interface todoStore {
         FAILUE : false,
     },
     getTodos : async () => {
-        const res = await getTodos()
+     
         todoStore.getState().getTodosState.LOADING = true
 
+        const res = await getTodos()
+
+        console.log("1",todoStore.getState().getTodosState.LOADING)
+        console.log("2",todoStore.getState().getTodosState.LOADING)
+        
         if(res instanceof Error){
             todoStore.getState().getTodosState.FAILUE = true
             todoStore.getState().getTodosState.LOADING = false
