@@ -31,12 +31,7 @@ export default function TodoContainer(){
 
     useEffect(() => {
         getTodos();
-		console.log("이펙트 SUCCES", getTodosState.SUCCES)
-        console.log("이펙트 LOADING ", getTodosState.LOADING)
-
 	},[])
-    console.log("SUCCES ", getTodosState.SUCCES)
-    console.log("LOADING ", getTodosState.LOADING)
 
     return (
         <>

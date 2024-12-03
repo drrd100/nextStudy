@@ -3,12 +3,9 @@
 import { useState } from "react";
 import Button from "../common/Button";
 import { button } from "@/components/primitives";
-import xior from 'xior';
-import Input from "../common/Input";
+import todoStore from "@/store/todoStore";
 
-// useState set 함수도 프롭으로 전달?
-// idDelete로 hidden 처리는 DOM수정 안됌
-// 
+import Input from "../common/Input";
 
 type TodoItemProp = {
     data : {
@@ -20,13 +17,12 @@ type TodoItemProp = {
     setTodos ?:any
 }
 
-const xiorInstance = xior.create({
-    baseURL:`${process.env.NEXT_PUBLIC_BASE_URL}`,
-    headers: { "Content-Type": "application/json", },
-  });
+export default function TodoItem({ data} : TodoItemProp){
+    const deleteTodos = todoStore((state) => state.deleteTodos);
+    const updateTodos = todoStore((state) => state.updateTodos);
 
-export default function TodoItem({ data , setTodos} : TodoItemProp){
     // console.info(setTodos)
+
     const [inputValue, setinputValue] = useState(data.title) 
     const [isDone, setIsDone] = useState(data.is_done)
     const [isModify, setIsModify] = useState(false)
@@ -41,24 +37,12 @@ export default function TodoItem({ data , setTodos} : TodoItemProp){
 
     // 업데이트
     const handleSubmit = async() => {
-        const body = {
+        const options = {
             title : inputValue,
             is_done : isDone
         }
-        const res = await xiorInstance.put(`/api/todos/${data.id}`, body)
-            .then((res) => {
-                // console.info(res.data)
-                setIsModify(!isModify)
-                setTodos(prev => prev.map(item => {
-                    if(item.id === data.id) {
-                        // console.log("같다", item, res.data)
-
-                        return { ...item, title: inputValue, is_done: isDone }
-                    }
-                    return item
-                }))
-            })
-            .catch((error) => console.log("업뎃에러! : ", error))
+        await updateTodos(data, options)
+        setIsModify(!isModify)
     }
 
     // 수정
@@ -68,27 +52,21 @@ export default function TodoItem({ data , setTodos} : TodoItemProp){
 
     // 취소
     const handleCancel = () => {
-
-        setTodos(prev => prev.map(item => {
-            if(item.is_done !== isDone){
-                setIsDone(item.is_done)
-            }
             setIsModify(!isModify)
 
-            return item
-        }))
+        // setTodos(prev => prev.map(item => {
+        //     if(item.is_done !== isDone){
+        //         setIsDone(item.is_done)
+        //     }
+        //     setIsModify(!isModify)
+
+        //     return item
+        // }))
     }
 
     // 삭제
     const handleDelete = async () => {
-
-        const res = await xiorInstance.delete(`/api/todos/${data.id}`)
-            .then((res) => {
-                // console.info(res.data)
-                setTodos(prev => prev.filter(item => item.id !== res.data.data.id))
-            })
-            .catch((error) => console.log("삭제에러! : ", error))
-
+        deleteTodos(data)
     }
 
     return (
@@ -112,7 +90,7 @@ export default function TodoItem({ data , setTodos} : TodoItemProp){
                         <Button className={button({type:"default"})} content={isDone ? "완료" : "미완료"} onClick={handleIsDone}/>
                     </>) : 
                     (<>
-                        <span>{isDone ? "완료" : "미완료"}</span>
+                        <span>{data.is_done ? "완료" : "미완료"}</span>
                     </>)
                 }
 

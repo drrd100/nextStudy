@@ -30,3 +30,23 @@ export const addTodos = async (options) => {
 
     return res
 }
+
+export const deleteTodos = async (data) => {
+    const res = await xiorInstance.delete(`/api/todos/${data.id}`)
+            .then((res) => {
+                console.info("dalete 통신성공", res.status)
+                return res
+            })
+            .catch((error) => console.log("dalete 통신에러", error))
+
+    return res
+}
+
+export const updateTodos = async (data, options) => {
+     const res = await xiorInstance.put(`/api/todos/${data.id}`, options)
+        .then((res) => {
+            console.info("update 통신성공",res, res.status)
+            return res
+        })
+        .catch((error) => console.log("update 통신에러", error))
+}
