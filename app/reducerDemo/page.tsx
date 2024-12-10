@@ -1,11 +1,12 @@
 import { title } from "@/components/primitives";
+import Msg from "@/components/reducerDemo/msg";
 
-export default async function zustandDemo() {
-	// console.log('res???', res)
+export default function reducerDemo() {
 	return (
 		<div>
-			<h1 className={title()}>useReducer, useContext</h1>
-			
+			<h1 className={`${title()}`}>reducerDemo</h1>
+			<Msg />
 		</div>
 	);
 }
+ 
