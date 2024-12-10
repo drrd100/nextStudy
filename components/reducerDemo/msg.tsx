@@ -5,16 +5,16 @@ import Button from "@/components/common/Button";
 import { TestContext } from "@/store/context";
 
 export default function Msg() {
-	const {msg, dispatch} = useContext(TestContext)
+	const {state, dispatch} = useContext(TestContext)
 	const handleTestDispatch = () => {
         console.info("zz")
-		dispatch({type:"TSET_REDUCER"})
+		dispatch({type:"TEST_REDUCER"})
 	}
-	console.info(msg,dispatch)
+	console.info(state)
 	return (
         <>
-            <p>{msg ? "true" : "false"}</p>
-            <Button onClick={handleTestDispatch} content="버튼zz"></Button>
+            <p>{state.msg ? "true" : "false"}</p>
+            <Button onClick={handleTestDispatch} content="버튼"></Button>
         </>
 	);
 }

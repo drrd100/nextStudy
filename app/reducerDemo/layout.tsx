@@ -1,12 +1,13 @@
 import { TestProvider } from "@/store/context";
 
-export default function TodosLayout({ children }: { children: React.ReactNode; }) {
-
+export default function TodosLayout({ children }: { children: React.ReactNode}) {
 	return (
-		<TestProvider>
-			<section className="flex justify-center">
-				{children}
-			</section>
-		</TestProvider>
+		<>
+			<TestProvider>
+				<section className="flex justify-center">
+					{children}
+				</section>
+			</TestProvider>
+		</>
 	);
 }

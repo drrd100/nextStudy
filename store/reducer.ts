@@ -1,6 +1,6 @@
 
 export const TestIntialState = {
-    msg : true,
+    msg : false,
 
     user: {},
     requestMyProject: []
@@ -10,7 +10,7 @@ export const TestIntialState = {
 const TestReducer = (state = TestIntialState, action) => {
         switch(action.type) {
             
-            case "TSET_REDUCER" : 
+            case "TEST_REDUCER" : 
                 return {
                     ...state,
                     msg : !state.msg,
