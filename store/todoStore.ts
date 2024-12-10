@@ -11,6 +11,7 @@ interface todoStore{
     addTodos : any
     deleteTodos : any
     updateTodos : any
+ 
   }
   
   const todoStore = create<todoStore>((set) => ({
@@ -20,10 +21,13 @@ interface todoStore{
         SUCCES : false,
         FAILUE : false,
     },
-    getTodos : async () => {
-     
-        todoStore.getState().getTodosState.LOADING = true
+    
 
+    getTodos : async (e) => {
+        console.info(e,"????")
+        
+        set((state) => ({ getTodosState : {...state.getTodosState, LOADING : true }}))
+        
         const res = await getTodos()
         
         if(res instanceof Error){
@@ -40,6 +44,7 @@ interface todoStore{
             set(() => ({todos : res.data.data}))
         }
     },
+
     addTodos : async (options) => {
         const res = await addTodos(options)
         

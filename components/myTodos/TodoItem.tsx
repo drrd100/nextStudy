@@ -21,8 +21,6 @@ export default function TodoItem({ data} : TodoItemProp){
     const deleteTodos = todoStore((state) => state.deleteTodos);
     const updateTodos = todoStore((state) => state.updateTodos);
 
-    // console.info(setTodos)
-
     const [inputValue, setinputValue] = useState(data.title) 
     const [isDone, setIsDone] = useState(data.is_done)
     const [isModify, setIsModify] = useState(false)
@@ -53,15 +51,6 @@ export default function TodoItem({ data} : TodoItemProp){
     // 취소
     const handleCancel = () => {
             setIsModify(!isModify)
-
-        // setTodos(prev => prev.map(item => {
-        //     if(item.is_done !== isDone){
-        //         setIsDone(item.is_done)
-        //     }
-        //     setIsModify(!isModify)
-
-        //     return item
-        // }))
     }
 
     // 삭제

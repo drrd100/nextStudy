@@ -12,6 +12,7 @@ export default function Header(){
                             <li><Link href={"/todos"}>Todos page</Link></li>
                             <li><Link href={"/myTodos"}>myTodos page</Link></li>
                             <li><Link href={"/zustandDemo"}>zustandDemo page</Link></li>
+                            <li><Link href={"/reducerDemo"}>reducerDemo page</Link></li>
                         </ul>
                     </nav>
                 </div>

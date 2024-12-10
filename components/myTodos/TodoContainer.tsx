@@ -27,7 +27,6 @@ export default function TodoContainer(){
         addTodos(options)
         setValue("")
     }
-  
 
     useEffect(() => {
         getTodos();
@@ -44,6 +43,8 @@ export default function TodoContainer(){
 
             <div className="py-[20px]">
                 {<span>{getTodosState.LOADING ? "true": "false"} </span>}
+                {<span>{getTodosState.SUCCES ? "true": "false"} </span>}
+                {<span>{getTodosState.FAILUE ? "true": "false"} </span>}
                 {getTodosState.LOADING && (
                     <>
                      <p>로딩중로딩중로딩중로딩중로딩중로딩중</p>
